@@ -1,0 +1,28 @@
+services:
+  php-apache:
+    #Mapeig de ports
+    ports:
+      - "80:80"
+    #Construeix la imatge del contenidor segons el Dockerfile que hi ha a mysql
+    build: 
+      context: .
+      dockerfile: Build/server/Dockerfile
+    #Mapeja la carpeta del projecte a la carpeta /var/www/html
+    volumes:
+      - .:/var/www/html
+  mysql:
+    #Mapeig de ports
+    ports:
+      - "3306:3306"
+    #Construeix la imatge del contenidor segons el Dockerfile que hi ha a mysql
+    build:
+      context: .
+      dockerfile: Build/mysql/Dockerfile
+    #Variables d'entorn per la bdd.
+    environment:
+      MYSQL_ROOT_PASSWORD: "12345"
+      MYSQL_DATABASE: "dbweb"
+    volumes:
+      - dbData:/var/lib/mysql
+volumes:
+  dbData:
