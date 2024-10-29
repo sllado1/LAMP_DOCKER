@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 # Activa el mòdul mod_rewrite d'Apache
-RUN a2enmod rewrite
+#RUN a2enmod rewrite
 # Modifica el php.ini per mostrar els errors
 RUN echo "display_errors = On" >> /usr/local/etc/php/php.ini
 RUN echo "display_startup_errors = On" >> /usr/local/etc/php/php.ini
