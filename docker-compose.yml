@@ -9,7 +9,7 @@ services:
     build: 
       context: .
       dockerfile: Build/server/Dockerfile
-    #Nom de la imatge que crearà. En el cas que no hi hagués el build, buscaria la imatge a local o DockerHub
+    #Nom de la imatge que crearà. En el cas que no hi hagués el --build, buscaria la imatge a local o DockerHub
     image: server_projectx_image
     #Mapeja la carpeta del projecte a la carpeta /var/www/html. Així si feu canvis al projecte, es veuran reflectits al contenidor
     volumes:
@@ -17,6 +17,9 @@ services:
     #Xarxa a la que pertany el contenidor
     networks:
       - network_project
+    # Crea un un ordre de dependència. Primer es crerà el contenidor mysql i després el php-apache
+    depends_on:
+      - mysql
   mysql:
     #Nom del contenidor de la bdd, útil perquè el server_projectX_container pugui connectar-se a la bdd
     container_name: mysql_projectX_container
@@ -56,6 +59,9 @@ services:
     #Xarxa a la que pertanyen el contenidor
     networks:
       - network_project
+    #Depèn del contenidor mysql
+    depends_on:
+      - mysql
 volumes:
   dbData:
 networks:
