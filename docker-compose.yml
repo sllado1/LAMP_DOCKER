@@ -1,5 +1,7 @@
 services:
   php-apache:
+    #Nom del contenidor
+    container_name: server_projectX_container
     #Mapeig de ports
     ports:
       - "80:80"
@@ -7,10 +9,17 @@ services:
     build: 
       context: .
       dockerfile: Build/server/Dockerfile
-    #Mapeja la carpeta del projecte a la carpeta /var/www/html
+    #Nom de la imatge que crearà. En el cas que no hi hagués el build, buscaria la imatge a local o DockerHub
+    image: server_projectX_image
+    #Mapeja la carpeta del projecte a la carpeta /var/www/html. Així si feu canvis al projecte, es veuran reflectits al contenidor
     volumes:
       - .:/var/www/html
+    #Xarxa a la que pertany el contenidor
+    networks:
+      - network_project
   mysql:
+    #Nom del contenidor de la bdd, útil perquè el server_projectX_container pugui connectar-se a la bdd
+    container_name: mysql_projectX_container
     #Mapeig de ports
     ports:
       - "3306:3306"
@@ -18,11 +27,37 @@ services:
     build:
       context: .
       dockerfile: Build/mysql/Dockerfile
+    #Nom de la imatge que crearà. En el cas que no hi hagués el build, buscaria la imatge a local o DockerHub
+    image: mysql_projectX_image
     #Variables d'entorn per la bdd.
     environment:
       MYSQL_ROOT_PASSWORD: "12345"
       MYSQL_DATABASE: "dbweb"
+    # La base de dades es crea amb format utf8mb4
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    #Volum on es guarda la base de dades (fitxer) així no es perdrà la informació si es para el contenidor
     volumes:
       - dbData:/var/lib/mysql
+    #Xarxa a la que pertanyen el contenidor
+    networks:
+      - network_project
+  phpmyadmin:
+    #Nom del contenidor de phpmyadmin
+    container_name: phpmyadmin_projectX_container
+    #Mapeig de ports
+    ports:
+      - "8080:80"
+    #Imatge de phpmyadmin del Dockerhub
+    image: phpmyadmin:latest
+    #Variables d'entorn per phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    #Xarxa a la que pertanyen el contenidor
+    networks:
+      - network_project
 volumes:
   dbData:
+networks:
+  network_project:  
+    driver: bridge

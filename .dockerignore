@@ -1,0 +1,15 @@
+#Ignora fitxers log
+*.log
+
+#Fitxers d'environment. On hi ha les variables d'entorn (contrasenyes, claus, etc)
+.env
+
+# Ignora els fitxers Dockerfile i docker-compose 
+Dockerfile
+docker-compose.yml
+
+#Ignora tots els fitxers *.tar
+*.tar
+
+# Ignore tots els fitxer de la carpeta Build. No cal que ho posi a la imatge de Docker
+./Build/*
