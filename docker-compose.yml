@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Build/server/Dockerfile
     #Nom de la imatge que crearà. En el cas que no hi hagués el build, buscaria la imatge a local o DockerHub
-    image: server_projectX_image
+    image: server_projectx_image
     #Mapeja la carpeta del projecte a la carpeta /var/www/html. Així si feu canvis al projecte, es veuran reflectits al contenidor
     volumes:
       - .:/var/www/html
@@ -28,7 +28,7 @@ services:
       context: .
       dockerfile: Build/mysql/Dockerfile
     #Nom de la imatge que crearà. En el cas que no hi hagués el build, buscaria la imatge a local o DockerHub
-    image: mysql_projectX_image
+    image: mysql_projectx_image
     #Variables d'entorn per la bdd.
     environment:
       MYSQL_ROOT_PASSWORD: "12345"
@@ -43,7 +43,7 @@ services:
       - network_project
   phpmyadmin:
     #Nom del contenidor de phpmyadmin
-    container_name: phpmyadmin_projectX_container
+    container_name: phpmyadmin_projectx_container
     #Mapeig de ports
     ports:
       - "8080:80"
