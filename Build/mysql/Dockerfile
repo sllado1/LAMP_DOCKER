@@ -1,6 +1,9 @@
 # Utilitza la darrera versió de la imatge oficial de MySQL com a base
 FROM mysql:latest
 
+# Copia el fitxer init.sql al directori d'inicialització de MySQL
+COPY ./db/init.sql /docker-entrypoint-initdb.d/
+
 # Canvia a l'usuari root per executar les comandes següents amb privilegis d'administrador
 USER root
 

@@ -48,6 +48,11 @@ Utilitza la darrera versió de la imatge oficial de MySQL com a base
 
 `FROM mysql:latest`
 
+Copiant el fitxer `init.sql` a la carpeta `/docker-entrypoint-initdb.d/` fa que cada vegada que es crei el volum de la bdd
+s'executi l'script. Si es para el contenidor i es torna engegar aquest script no s'executarà.
+
+`COPY ./db/init.sql /docker-entrypoint-initdb.d/`
+
 Canvia a l'usuari root per executar les comandes següents amb privilegis d'administrador
 
 `USER root`
