@@ -60,6 +60,18 @@ El fitxer `.dockerignore` permet configurar els fitxers o carpetes que es volen 
 ## .gitignore
 El fitxer `.gitignore`permet configurar els fitxers o carpetes que es volen excloure els commits.
 
+## Treballar amb els contenidors
+Crea els contenidors, però previament crea la imatge
+`docker compose up --build`
+Crea els contenidors, però utilitzant les imatges creades
+`docker compose up`
+Para un contenidor
+`docker compose stop`
+Eliminar un contenidor
+`docker compose down`
+Eliminar un contenidor i els seus volums
+`docker compose --volumes`
+
 ## Conclusió
 
 Aquest projecte utilitza Docker per simplificar la gestió de dependències i l'execució de l'aplicació en diferents entorns. Els fitxers Dockerfile i docker-compose.yml proporcionen una manera fàcil de construir i executar els contenidors necessaris.
