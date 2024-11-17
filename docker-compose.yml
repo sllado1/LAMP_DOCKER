@@ -62,8 +62,10 @@ services:
     #Depèn del contenidor mysql
     depends_on:
       - mysql
+#Volums que es crearan perquè la base de dades no es perdi
 volumes:
   dbData:
+#Xarxa que es crearà per la comunicació dels contenidors
 networks:
   network_project:  
     driver: bridge
