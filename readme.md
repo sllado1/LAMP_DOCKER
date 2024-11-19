@@ -65,13 +65,24 @@ amb permisos de lectura i execució (755) per a l'usuari root i altres usuaris.
 
 ## docker-compose.yml
 
+Hi ha dos docker-compose preparats
+#### docker-compose.yml
 El fitxer docker-compose.yml s'utilitza per definir i executar aplicacions multi-contenidor. 
 El docker-compose crea 3 contenidors:
 1. El contenidor server_projectx_container: Contenidor d'una màquina amb php on el DocumentRoot està mapejat amb el projecte.
-2. El contenidor mysql_projectx_container: Contenidor que guarda la bdd del projecte
+2. El contenidor mariadb_projectx_container: Contenidor que guarda la bdd del projecte en aquest cas mysql
 3. El contenidor phpmyadmin_projectx_container: Contenidor amb phpmyadmin per gestionar el contenidor mysql.
 
+#### docker-compose mysql.yml
+El fitxer docker-compose.yml s'utilitza per definir i executar aplicacions multi-contenidor amb mysql 
+El docker-compose crea 3 contenidors:
+1. El contenidor server_projectx_container: Contenidor d'una màquina amb php on el DocumentRoot està mapejat amb el projecte.
+2. El contenidor mysql_projectx_container: Contenidor que guarda la bdd del projecte en aquest cas mysql
+3. El contenidor phpmyadmin_projectx_container: Contenidor amb phpmyadmin per gestionar el contenidor mariadb.
+
 Aquests tres contenidors estan connectats per una xarxa interna del Docker anomenada: network_project
+
+En el cas de voler crear el contenidor de bdd `mysql` s'ha de reanomenar el docker-compose.yml amb una altre nom i tot seguit reanomenar docker-compose mysql a docker-compose.yml
 
 ## .dockerignore
 El fitxer `.dockerignore` permet configurar els fitxers o carpetes que es volen excloure en el moment de fer una imatge amb Dockerfile `COPY`

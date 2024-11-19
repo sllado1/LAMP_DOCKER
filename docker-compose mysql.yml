@@ -19,19 +19,19 @@ services:
       - network_project
     # Crea un un ordre de dependència. Primer es crerà el contenidor mysql i després el php-apache
     depends_on:
-      - mariadb
-  mariadb:
+      - mysql
+  mysql:
     #Nom del contenidor de la bdd, útil perquè el server_projectX_container pugui connectar-se a la bdd
-    container_name: mariadb_projectX_container
+    container_name: mysql_projectX_container
     #Mapeig de ports
     ports:
       - "3306:3306"
     #Construeix la imatge del contenidor segons el Dockerfile que hi ha a mysql
     build:
       context: .
-      dockerfile: Build/mariadb/Dockerfile
+      dockerfile: Build/mysql/Dockerfile
     #Nom de la imatge que crearà. En el cas que no hi hagués el build, buscaria la imatge a local o DockerHub
-    image: mariadb_projectx_image
+    image: mysql_projectx_image
     #Variables d'entorn per la bdd.
     environment:
       MYSQL_ROOT_PASSWORD: 12345
@@ -42,7 +42,7 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     #Volum on es guarda la base de dades (fitxer) així no es perdrà la informació si es para el contenidor
     volumes:
-      - dbDataMariaDB:/var/lib/mysql
+      - dbData:/var/lib/mysql
     #Xarxa a la que pertanyen el contenidor
     networks:
       - network_project
@@ -56,18 +56,17 @@ services:
     image: phpmyadmin:latest
     #Variables d'entorn per phpmyadmin
     environment:
-      PMA_HOST: mariadb
+      PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_ABSOLUTE_URI: "http://localhost:8080"  # Assegura't d'establir aquesta opció
     #Xarxa a la que pertanyen el contenidor
     networks:
       - network_project
     #Depèn del contenidor mysql
     depends_on:
-      - mariadb
+      - mysql
 #Volums que es crearan perquè la base de dades no es perdi
 volumes:
-  dbDataMariaDB:
+  dbData:
 #Xarxa que es crearà per la comunicació dels contenidors
 networks:
   network_project:  
